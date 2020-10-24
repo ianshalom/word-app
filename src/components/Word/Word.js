@@ -1,12 +1,13 @@
 import React from "react";
 import "./Word.css";
-function Word({ word, saveWord }) {
+function Word({ word, saveWord, showButton }) {
   return (
     <div>
       <h2>We've found your word!</h2>
       <hr />
       <h1>Word: {word.word[0].toUpperCase() + word.word.slice(1)}</h1>
-      <button onClick={saveWord}>Save Word</button>
+      {showButton ? null : <button onClick={saveWord}>Save Word</button>}
+
       <ol>
         <li>
           {word.meanings.map((w) => {
