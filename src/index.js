@@ -8,7 +8,12 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import findWordsReducer from "./store/reducers/FindWords";
 
-const store = createStore(findWordsReducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  findWordsReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>
