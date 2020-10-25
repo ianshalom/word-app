@@ -3,13 +3,21 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import findWordsReducer from "./store/reducers/FindWords";
+
+const store = createStore(findWordsReducer);
 
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
 

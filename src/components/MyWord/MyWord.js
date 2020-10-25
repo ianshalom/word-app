@@ -8,7 +8,7 @@ function MyWord(props) {
       <h2>
         Word: {description.word[0].toUpperCase() + description.word.slice(1)}{" "}
         <button onClick={back}>Back</button>
-        <button>Delete</button>
+        <button onClick={() => props.delete(description.id)}>Delete</button>
       </h2>
       {description.meanings.map((meaning) => {
         return (
@@ -33,6 +33,17 @@ function MyWord(props) {
           </div>
         );
       })}
+      <div>
+        <form>
+          <label>Notes</label>
+          <textarea type="text" />
+          <button>Saved notes</button>
+        </form>
+      </div>
+      <div>
+        <h3>My Notes</h3>
+        <hr />
+      </div>
     </div>
   );
 }

@@ -53,11 +53,10 @@ class MyWords extends Component {
     const updatedList = list.filter((word) => {
       return word.id !== id;
     });
-    this.setState({ words: updatedList });
+    this.setState({ words: updatedList, display: false });
   };
 
   render() {
-    console.log(this.state.words);
     let list = <Spinner />;
     if (this.state.words && !this.state.display) {
       list = this.state.words.map((word) => (
@@ -80,6 +79,7 @@ class MyWords extends Component {
         <MyWord
           description={this.state.selectedWord[0]}
           back={this.onToggleBack}
+          delete={this.onDeleteWord}
         />
       );
     }
