@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./MyWords.css";
 import axiosFirebase from "../../axios-firebase";
 import MyWord from "../../components/MyWord/MyWord";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class MyWords extends Component {
   state = {
@@ -18,7 +19,7 @@ class MyWords extends Component {
       let info = res.data;
       for (let keys in res.data) {
         words.push({
-          id: info[keys].word,
+          id: keys,
           word: info[keys].word,
           meanings: info[keys].meanings,
         });
@@ -29,7 +30,6 @@ class MyWords extends Component {
 
   onDisplayWordHandler = (e, id) => {
     e.preventDefault();
-    console.log(id);
     const word = this.state.words.filter((w) => {
       return w.id === id;
     });
@@ -40,8 +40,25 @@ class MyWords extends Component {
     this.setState({ display: false });
   };
 
+  onDeleteWord = (id) => {
+    axiosFirebase
+      .delete(`/words/${id}.json`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    const list = [...this.state.words];
+    const updatedList = list.filter((word) => {
+      return word.id !== id;
+    });
+    this.setState({ words: updatedList });
+  };
+
   render() {
-    let list = null;
+    console.log(this.state.words);
+    let list = <Spinner />;
     if (this.state.words && !this.state.display) {
       list = this.state.words.map((word) => (
         <React.Fragment key={word.id}>
@@ -51,12 +68,14 @@ class MyWords extends Component {
           <button onClick={(e) => this.onDisplayWordHandler(e, word.id)}>
             Expand Word
           </button>
+          <button onClick={() => this.onDeleteWord(word.id)}>Delete</button>
         </React.Fragment>
       ));
     }
 
     let displayWord = null;
     if (this.state.display) {
+      list = null;
       displayWord = (
         <MyWord
           description={this.state.selectedWord[0]}

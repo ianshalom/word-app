@@ -3,7 +3,8 @@ import Search from "../../components/Search/Search";
 import axiosSearch from "../../axios-search";
 import Word from "../../components/Word/Word";
 import axiosFirebase from "../../axios-firebase";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Find extends Component {
   state = {
@@ -15,7 +16,7 @@ class Find extends Component {
 
   onSearchHandler = (word) => {
     const lowerCaseWord = word.toLowerCase();
-    this.setState({ finding: true });
+    this.setState({ finding: true, error: false });
     axiosSearch
       .get(`/${lowerCaseWord}`)
       .then((res) => {
@@ -24,6 +25,7 @@ class Find extends Component {
           word: searchedWord,
           error: false,
           finding: false,
+          loading: false,
         });
       })
       .catch((err) => {
@@ -33,13 +35,15 @@ class Find extends Component {
   };
 
   saveWordHandler = () => {
+    this.setState({ loading: true });
     axiosFirebase
       .post("/words.json/", this.state.word)
       .then((res) => {
-        this.setState({ saved: true });
+        this.setState({ saved: true, loading: false });
       })
       .catch((err) => {
         console.log(err.message);
+        this.setState({ loading: false });
       });
   };
 
@@ -48,8 +52,8 @@ class Find extends Component {
     if (this.state.word) {
       words = <Word word={this.state.word} saveWord={this.saveWordHandler} />;
     }
-    if (this.state.finding) {
-      words = <p>Searching for your word...</p>;
+    if (this.state.finding || this.state.loading) {
+      words = <Spinner />;
     }
     if (this.state.error) {
       words = (
@@ -58,8 +62,13 @@ class Find extends Component {
         </p>
       );
     }
+    if (this.state.saved) {
+      words = (
+        <p>Your word has successfully been saved! Search for another word!</p>
+      );
+    }
     let redirect = null;
-    if (this.state.saved) return <Redirect to="/" />;
+    // if (this.state.saved) return <Redirect to="/" />;
 
     return (
       <div>

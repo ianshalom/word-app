@@ -1,6 +1,8 @@
 .Word {
-  padding: 10px;
+  padding: 20px;
   box-shadow: 1px 2px 3px #eee;
   border: 2px solid #eee;
   font-size: 30px;
+  width: 50%;
+  margin: 20px auto;
 }

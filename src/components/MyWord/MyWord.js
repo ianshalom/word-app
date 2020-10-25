@@ -8,10 +8,11 @@ function MyWord(props) {
       <h2>
         Word: {description.word[0].toUpperCase() + description.word.slice(1)}{" "}
         <button onClick={back}>Back</button>
+        <button>Delete</button>
       </h2>
       {description.meanings.map((meaning) => {
         return (
-          <div>
+          <div key={meaning.partOfSpeech}>
             <p>
               <strong>Part of Speech: </strong>{" "}
               {meaning.partOfSpeech[0].toUpperCase() +
