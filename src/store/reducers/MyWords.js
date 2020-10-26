@@ -5,6 +5,7 @@ const initialState = {
   error: false,
   selectedWord: null,
   display: false,
+  deleteError: false,
 };
 
 const myWordsReducer = (state = initialState, action) => {
@@ -33,6 +34,16 @@ const myWordsReducer = (state = initialState, action) => {
       return {
         ...state,
         display: false,
+      };
+    case constants.DELETE_WORD_SUCCESS:
+      return {
+        ...state,
+        words: action.updatedList,
+        display: false,
+      };
+    case constants.DELETE_WORD_FAIL:
+      return {
+        ...state,
       };
     default:
       return state;

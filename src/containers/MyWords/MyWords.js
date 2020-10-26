@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./MyWords.css";
 import axiosFirebase from "../../axios-firebase";
 import MyWord from "../../components/MyWord/MyWord";
@@ -30,19 +29,7 @@ class MyWords extends Component {
   };
 
   onDeleteWord = (id) => {
-    axiosFirebase
-      .delete(`/words/${id}.json`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    const list = [...this.state.words];
-    const updatedList = list.filter((word) => {
-      return word.id !== id;
-    });
-    this.setState({ words: updatedList, display: false });
+    this.props.onDeleteWord(this.props.words, id);
   };
 
   render() {
@@ -97,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
     onGetWords: () => dispatch(getWords.getWords()),
     onDisplayWord: (word) => dispatch(getWords.displayWord(word)),
     toggleBack: () => dispatch(getWords.onToggleBack()),
+    onDeleteWord: (words, id) => dispatch(getWords.deleteWord(words, id)),
   };
 };
 
