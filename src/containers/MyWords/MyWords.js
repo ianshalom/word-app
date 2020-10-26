@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./MyWords.css";
-import axiosFirebase from "../../axios-firebase";
+
 import MyWord from "../../components/MyWord/MyWord";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as getWords from "../../store/actions/index";
