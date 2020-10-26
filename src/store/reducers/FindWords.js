@@ -14,6 +14,7 @@ const findWordsReducer = (state = initialState, action) => {
         ...state,
         finding: true,
         loading: true,
+        error: false,
       };
     case constants.SEARCH_SUCCESS:
       return {

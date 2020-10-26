@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Search from "../../components/Search/Search";
-// import axiosSearch from "../../axios-search";
 import Word from "../../components/Word/Word";
-// import axiosFirebase from "../../axios-firebase";
-// import { Redirect } from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
@@ -23,16 +20,6 @@ class Find extends Component {
   };
 
   saveWordHandler = () => {
-    // this.setState({ loading: true });
-    // axiosFirebase
-    //   .post("/words.json/", this.state.word)
-    //   .then((res) => {
-    //     this.setState({ saved: true, loading: false });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //     this.setState({ loading: false });
-    //   });
     this.props.onSavedWord(this.props.word);
   };
 
@@ -57,7 +44,6 @@ class Find extends Component {
       );
     }
     let redirect = null;
-    // if (this.state.saved) return <Redirect to="/" />;
 
     return (
       <div>
@@ -72,11 +58,11 @@ class Find extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    word: state.word,
-    loading: state.loading,
-    finding: state.finding,
-    error: state.error,
-    saved: state.saved,
+    word: state.findWords.word,
+    loading: state.findWords.loading,
+    finding: state.findWords.finding,
+    error: state.findWords.error,
+    saved: state.findWords.saved,
   };
 };
 

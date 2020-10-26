@@ -4,40 +4,29 @@ import "./MyWords.css";
 import axiosFirebase from "../../axios-firebase";
 import MyWord from "../../components/MyWord/MyWord";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import * as getWords from "../../store/actions/index";
+import { connect } from "react-redux";
 
 class MyWords extends Component {
   state = {
-    words: null,
-    display: false,
     noButton: true,
     selectedWord: null,
   };
 
   componentDidMount() {
-    axiosFirebase.get("/words.json").then((res) => {
-      let words = [];
-      let info = res.data;
-      for (let keys in res.data) {
-        words.push({
-          id: keys,
-          word: info[keys].word,
-          meanings: info[keys].meanings,
-        });
-      }
-      this.setState({ words });
-    });
+    this.props.onGetWords();
   }
 
   onDisplayWordHandler = (e, id) => {
     e.preventDefault();
-    const word = this.state.words.filter((w) => {
+    const word = this.props.words.filter((w) => {
       return w.id === id;
     });
-    this.setState({ display: true, selectedWord: word });
+    this.props.onDisplayWord(word);
   };
 
   onToggleBack = () => {
-    this.setState({ display: false });
+    this.props.toggleBack();
   };
 
   onDeleteWord = (id) => {
@@ -58,8 +47,8 @@ class MyWords extends Component {
 
   render() {
     let list = <Spinner />;
-    if (this.state.words && !this.state.display) {
-      list = this.state.words.map((word) => (
+    if (this.props.words && !this.props.display) {
+      list = this.props.words.map((word) => (
         <React.Fragment key={word.id}>
           <p className="Word" onClick={this.onDisplayHandler}>
             {word.word[0].toUpperCase() + word.word.slice(1)}
@@ -73,11 +62,11 @@ class MyWords extends Component {
     }
 
     let displayWord = null;
-    if (this.state.display) {
+    if (this.props.display) {
       list = null;
       displayWord = (
         <MyWord
-          description={this.state.selectedWord[0]}
+          description={this.props.selectedWord[0]}
           back={this.onToggleBack}
           delete={this.onDeleteWord}
         />
@@ -95,4 +84,20 @@ class MyWords extends Component {
   }
 }
 
-export default MyWords;
+const mapStateToProps = (state) => {
+  return {
+    words: state.myWords.words,
+    display: state.myWords.display,
+    selectedWord: state.myWords.selectedWord,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetWords: () => dispatch(getWords.getWords()),
+    onDisplayWord: (word) => dispatch(getWords.displayWord(word)),
+    toggleBack: () => dispatch(getWords.onToggleBack()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyWords);
