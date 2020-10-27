@@ -1,6 +1,7 @@
 import * as constants from "../actionTypes";
 
 const initialState = {
+  keyedWord: null,
   word: null,
   finding: false,
   error: false,
@@ -15,11 +16,12 @@ const findWordsReducer = (state = initialState, action) => {
         finding: true,
         loading: true,
         error: false,
+        keyedWord: action.word,
       };
     case constants.SEARCH_SUCCESS:
       return {
         ...state,
-        word: action.word,
+        word: action.foundWord,
         finding: false,
         loading: false,
         saved: false,

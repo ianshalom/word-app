@@ -1,18 +1,18 @@
 import * as constants from "../actionTypes";
-import axiosSearch from "../../axios-search";
 import axiosFirebase from "../../axios-firebase";
 
 //############### SEARCH FOR WORD ###################
-export const startSearch = () => {
+export const startSearch = (searchedWord) => {
   return {
     type: constants.START_SEARCH,
+    word: searchedWord,
   };
 };
 
-export const searchSuccess = (searchedWord) => {
+export const searchSuccess = (foundWord) => {
   return {
     type: constants.SEARCH_SUCCESS,
-    word: searchedWord,
+    foundWord,
   };
 };
 
@@ -23,20 +23,20 @@ export const searchFail = (err) => {
   };
 };
 
-export const initSearch = (word) => {
-  return (dispatch) => {
-    dispatch(startSearch());
-    axiosSearch
-      .get(`/${word}`)
-      .then((res) => {
-        const searchedWord = res.data[0];
-        dispatch(searchSuccess(searchedWord));
-      })
-      .catch((err) => {
-        dispatch(searchFail(err));
-      });
-  };
-};
+// export const initSearch = (word) => {
+//   return (dispatch) => {
+//     dispatch(startSearch());
+//     axiosSearch
+//       .get(`/${word}`)
+//       .then((res) => {
+//         const searchedWord = res.data[0];
+//         dispatch(searchSuccess(searchedWord));
+//       })
+//       .catch((err) => {
+//         dispatch(searchFail(err));
+//       });
+//   };
+// };
 
 //############### SAVE WORD ###################
 

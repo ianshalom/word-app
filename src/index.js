@@ -3,23 +3,10 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import findWordsReducer from "./store/reducers/FindWords";
-import myWordsReducer from "./store/reducers/MyWords";
+import configureStore from "./store";
 
-const rootReducer = combineReducers({
-  findWords: findWordsReducer,
-  myWords: myWordsReducer,
-});
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

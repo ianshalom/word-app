@@ -6,13 +6,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class Find extends Component {
-  state = {
-    word: null,
-    error: false,
-    finding: false,
-    saved: false,
-  };
-
   onSearchHandler = (word) => {
     const lowerCaseWord = word.toLowerCase();
     this.setState({ finding: true, error: false });
@@ -68,7 +61,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSearchWord: (word) => dispatch(actions.initSearch(word)),
+    onSearchWord: (word) => dispatch(actions.startSearch(word)),
     onSavedWord: (word) => dispatch(actions.saveWord(word)),
   };
 };
