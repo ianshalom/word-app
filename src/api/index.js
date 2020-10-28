@@ -40,4 +40,17 @@ const getWords = async () => {
   return retrievedWords;
 };
 
-export { searchWord, saveWord, getWords };
+const deleteWord = async (words, id) => {
+  const updatedWords = await axiosFirebase
+    .delete(`/words/${id}.json`)
+    .then((res) => {
+      const list = [...words];
+      const updatedList = list.filter((word) => {
+        return word.id !== id;
+      });
+      return updatedList;
+    });
+  return updatedWords;
+};
+
+export { searchWord, saveWord, getWords, deleteWord };

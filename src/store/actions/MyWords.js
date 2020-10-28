@@ -21,29 +21,6 @@ export const getWordsFail = () => {
   };
 };
 
-// export const getWords = () => {
-//   return (dispatch) => {
-//     dispatch(getWordsStart());
-//     axiosFirebase
-//       .get("/words.json")
-//       .then((res) => {
-//         let words = [];
-//         let info = res.data;
-//         for (let keys in res.data) {
-//           words.push({
-//             id: keys,
-//             word: info[keys].word,
-//             meanings: info[keys].meanings,
-//           });
-//         }
-//         dispatch(getWordsSucccess(words));
-//       })
-//       .catch((err) => {
-//         dispatch(getWordsFail());
-//       });
-//   };
-// };
-
 //############## Display Word #################
 export const displayWord = (word) => {
   return {
@@ -68,21 +45,29 @@ export const deleteWordFail = () => {
 };
 
 export const deleteWord = (words, id) => {
-  return (dispatch) => {
-    axiosFirebase
-      .delete(`/words/${id}.json`)
-      .then((res) => {
-        const list = [...words];
-        const updatedList = list.filter((word) => {
-          return word.id !== id;
-        });
-        dispatch(deleteWordSuccess(updatedList));
-      })
-      .catch((err) => {
-        dispatch(deleteWordFail());
-      });
+  return {
+    type: constants.DELETE_WORD,
+    words,
+    id,
   };
 };
+
+// export const deleteWord = (words, id) => {
+//   return (dispatch) => {
+//     axiosFirebase
+//       .delete(`/words/${id}.json`)
+//       .then((res) => {
+//         const list = [...words];
+//         const updatedList = list.filter((word) => {
+//           return word.id !== id;
+//         });
+//         dispatch(deleteWordSuccess(updatedList));
+//       })
+//       .catch((err) => {
+//         dispatch(deleteWordFail());
+//       });
+//   };
+// };
 
 //############### Toggle Back Button ##############
 export const onToggleBack = () => {

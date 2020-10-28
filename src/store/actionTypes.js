@@ -13,5 +13,6 @@ export const GET_WORDS_FAIL = "GET_WORDS_FAIL";
 export const DISPLAY_WORD = "DISPLAY_WORD";
 export const ON_TOGGLE_BACK = "ON_TOGGLE_BACK";
 
+export const DELETE_WORD = "DELETE_WORD";
 export const DELETE_WORD_SUCCESS = "DELETE_WORD_SUCCESS";
 export const DELETE_WORD_FAIL = "DELETE_WORD_FAIL";
