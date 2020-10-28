@@ -1,4 +1,5 @@
 import axiosSearch from "../axios-search";
+import axiosFirebase from "../axios-firebase";
 
 const searchWord = async (keyedWord) => {
   const word = await axiosSearch.get(`/${keyedWord}`).then((res) => {
@@ -11,4 +12,15 @@ const searchWord = async (keyedWord) => {
   return word;
 };
 
-export { searchWord };
+const saveWord = async (wordToSave) => {
+  axiosFirebase
+    .post("/words.json", wordToSave)
+    .then((res) => {
+      return true;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export { searchWord, saveWord };

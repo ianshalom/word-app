@@ -8,7 +8,6 @@ export const getKeyedWord = (state) => state.findWords.keyedWord;
 export function* initSearchWord() {
   try {
     const word = yield select(getKeyedWord);
-
     const result = yield call(searchWord, word);
     yield put(searchSuccess(result));
   } catch (error) {

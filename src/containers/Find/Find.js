@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchWord: (word) => dispatch(actions.startSearch(word)),
-    onSavedWord: (word) => dispatch(actions.saveWord(word)),
+    onSavedWord: (word) => dispatch(actions.startSave(word)),
   };
 };
 
