@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetWords: () => dispatch(getWords.getWords()),
+    onGetWords: () => dispatch(getWords.getWordsStart()),
     onDisplayWord: (word) => dispatch(getWords.displayWord(word)),
     toggleBack: () => dispatch(getWords.onToggleBack()),
     onDeleteWord: (words, id) => dispatch(getWords.deleteWord(words, id)),

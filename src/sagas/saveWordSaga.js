@@ -8,12 +8,12 @@ export const getWord = (state) => state.findWords.word;
 export function* initSaveWord() {
   try {
     const wordToSave = yield select(getWord);
-
-    const successfullySaved = yield call(saveWord, wordToSave);
-    console.log(successfullySaved);
-    yield put(saveSuccess(successfullySaved));
+    const status = yield call(saveWord, wordToSave);
+    console.log(status);
+    if (status) yield put(saveSuccess());
   } catch (error) {
-    console.log(error.toString());
+    // yield put(saveFail(error.toString()));
+    console.log(error.message);
   }
 }
 

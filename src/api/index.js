@@ -13,14 +13,31 @@ const searchWord = async (keyedWord) => {
 };
 
 const saveWord = async (wordToSave) => {
-  axiosFirebase
+  const status = await axiosFirebase
     .post("/words.json", wordToSave)
     .then((res) => {
       return true;
     })
     .catch((err) => {
-      return err;
+      return err.message;
     });
+  return status;
 };
 
-export { searchWord, saveWord };
+const getWords = async () => {
+  const retrievedWords = await axiosFirebase.get("/words.json").then((res) => {
+    let words = [];
+    let info = res.data;
+    for (let keys in res.data) {
+      words.push({
+        id: keys,
+        word: info[keys].word,
+        meanings: info[keys].meanings,
+      });
+    }
+    return words;
+  });
+  return retrievedWords;
+};
+
+export { searchWord, saveWord, getWords };
