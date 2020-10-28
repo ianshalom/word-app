@@ -11,7 +11,7 @@ export function* initSearchWord() {
     const result = yield call(searchWord, word);
     yield put(searchSuccess(result));
   } catch (error) {
-    yield put(searchFail(error.toString()));
+    yield put(searchFail());
   }
 }
 

@@ -1,5 +1,4 @@
 import * as constants from "../actionTypes";
-import axiosFirebase from "../../axios-firebase";
 
 //################# GET WORDS ####################
 export const getWordsStart = () => {
@@ -51,23 +50,6 @@ export const deleteWord = (words, id) => {
     id,
   };
 };
-
-// export const deleteWord = (words, id) => {
-//   return (dispatch) => {
-//     axiosFirebase
-//       .delete(`/words/${id}.json`)
-//       .then((res) => {
-//         const list = [...words];
-//         const updatedList = list.filter((word) => {
-//           return word.id !== id;
-//         });
-//         dispatch(deleteWordSuccess(updatedList));
-//       })
-//       .catch((err) => {
-//         dispatch(deleteWordFail());
-//       });
-//   };
-// };
 
 //############### Toggle Back Button ##############
 export const onToggleBack = () => {

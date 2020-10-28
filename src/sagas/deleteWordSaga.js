@@ -11,10 +11,9 @@ export function* initDeleteWord() {
     const words = yield select(currentWords);
     const id = yield select(currentWordId);
     const updatedWords = yield call(deleteWord, words, id);
-    console.log(updatedWords);
     yield put(deleteWordSuccess(updatedWords));
   } catch (error) {
-    console.log(error);
+    yield put(deleteWordFail);
   }
 }
 

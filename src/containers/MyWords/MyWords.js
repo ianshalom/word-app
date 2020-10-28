@@ -33,9 +33,10 @@ class MyWords extends Component {
   };
 
   render() {
+    const { words, display, selectedWord, loading } = this.props;
     let list = <Spinner />;
-    if (this.props.words && !this.props.display) {
-      list = this.props.words.map((word) => (
+    if (words && !display) {
+      list = words.map((word) => (
         <React.Fragment key={word.id}>
           <p className="Word" onClick={this.onDisplayHandler}>
             {word.word[0].toUpperCase() + word.word.slice(1)}
@@ -49,11 +50,11 @@ class MyWords extends Component {
     }
 
     let displayWord = null;
-    if (this.props.display) {
+    if (display) {
       list = null;
       displayWord = (
         <MyWord
-          description={this.props.selectedWord[0]}
+          description={selectedWord[0]}
           back={this.onToggleBack}
           delete={this.onDeleteWord}
         />
@@ -64,8 +65,9 @@ class MyWords extends Component {
       <div>
         <h1>My WORDS</h1>
         <hr />
-        {list}
-        {displayWord}
+        {loading && <Spinner />}
+        {!loading && list}
+        {!loading && displayWord}
       </div>
     );
   }
@@ -76,6 +78,7 @@ const mapStateToProps = (state) => {
     words: state.myWords.words,
     display: state.myWords.display,
     selectedWord: state.myWords.selectedWord,
+    loading: state.myWords.loading,
   };
 };
 

@@ -17,21 +17,22 @@ class Find extends Component {
   };
 
   render() {
+    const { word, loading, finding, error, saved } = this.props;
     let words = <p>You have not searched for a word yet...</p>;
-    if (this.props.word) {
-      words = <Word word={this.props.word} saveWord={this.saveWordHandler} />;
+    if (word) {
+      words = <Word word={word} saveWord={this.saveWordHandler} />;
     }
-    if (this.props.finding || this.props.loading) {
+    if (finding || loading) {
       words = <Spinner />;
     }
-    if (this.props.error) {
+    if (error) {
       words = (
         <p style={{ color: "red" }}>
           Sorry, unfortunately we were unable to find such a word.
         </p>
       );
     }
-    if (this.props.saved) {
+    if (saved) {
       words = (
         <p>Your word has successfully been saved! Search for another word!</p>
       );

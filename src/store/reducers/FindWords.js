@@ -17,6 +17,7 @@ const findWordsReducer = (state = initialState, action) => {
         loading: true,
         error: false,
         keyedWord: action.word,
+        saved: false,
       };
     case constants.SEARCH_SUCCESS:
       return {
