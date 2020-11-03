@@ -6,7 +6,9 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class Find extends Component {
-  onSearchHandler = (word) => {
+  onSearchHandler = (wordToSearch) => {
+    const { word } = wordToSearch;
+    console.log(word);
     const lowerCaseWord = word.toLowerCase();
     this.setState({ finding: true, error: false });
     this.props.onSearchWord(lowerCaseWord);
