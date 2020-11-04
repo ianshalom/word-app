@@ -7,13 +7,14 @@ const useStyles = makeStyles({
   root: {
     fontSize: "30px",
     padding: "10px",
+    backgroundColor: "#d9e4dd",
   },
   navStyles: {
     fontFamily: "Nanum Gothic",
     fontWeight: "bold",
   },
   color: {
-    color: "#c060a1",
+    color: "#373a40",
   },
 });
 function NavigationItems() {

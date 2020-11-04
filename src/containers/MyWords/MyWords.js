@@ -7,7 +7,9 @@ import * as getWords from "../../store/actions/index";
 import { connect } from "react-redux";
 import getWordsData from "./selectors";
 import { createStructuredSelector } from "reselect";
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import AspectRatioIcon from "@material-ui/icons/AspectRatio";
 class MyWords extends Component {
   state = {
     noButton: true,
@@ -43,10 +45,22 @@ class MyWords extends Component {
           <p className="Word" onClick={this.onDisplayHandler}>
             {word.word[0].toUpperCase() + word.word.slice(1)}
           </p>
-          <button onClick={(e) => this.onDisplayWordHandler(e, word.id)}>
-            Expand Word
-          </button>
-          <button onClick={() => this.onDeleteWord(word.id)}>Delete</button>
+          <IconButton>
+            <AspectRatioIcon
+              fontSize="large"
+              onClick={(e) => this.onDisplayWordHandler(e, word.id)}
+            >
+              Expand Word
+            </AspectRatioIcon>
+          </IconButton>
+          <IconButton>
+            <DeleteIcon
+              fontSize="large"
+              onClick={() => this.onDeleteWord(word.id)}
+            >
+              Delete
+            </DeleteIcon>
+          </IconButton>
         </React.Fragment>
       ));
     }
