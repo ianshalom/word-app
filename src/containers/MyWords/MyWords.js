@@ -5,6 +5,8 @@ import MyWord from "../../components/MyWord/MyWord";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as getWords from "../../store/actions/index";
 import { connect } from "react-redux";
+import getWordsData from "./selectors";
+import { createStructuredSelector } from "reselect";
 
 class MyWords extends Component {
   state = {
@@ -18,7 +20,7 @@ class MyWords extends Component {
 
   onDisplayWordHandler = (e, id) => {
     e.preventDefault();
-    const word = this.props.words.filter((w) => {
+    const word = this.props.data.words.filter((w) => {
       return w.id === id;
     });
     this.props.onDisplayWord(word);
@@ -33,10 +35,11 @@ class MyWords extends Component {
   };
 
   render() {
-    const { words, display, selectedWord, loading } = this.props;
+    const { data } = this.props;
+    console.log(data);
     let list = <Spinner />;
-    if (words && !display) {
-      list = words.map((word) => (
+    if (data.words && !data.display) {
+      list = data.words.map((word) => (
         <React.Fragment key={word.id}>
           <p className="Word" onClick={this.onDisplayHandler}>
             {word.word[0].toUpperCase() + word.word.slice(1)}
@@ -50,11 +53,11 @@ class MyWords extends Component {
     }
 
     let displayWord = null;
-    if (display) {
+    if (data.display) {
       list = null;
       displayWord = (
         <MyWord
-          description={selectedWord[0]}
+          description={data.selectedWord[0]}
           back={this.onToggleBack}
           delete={this.onDeleteWord}
         />
@@ -65,22 +68,17 @@ class MyWords extends Component {
       <div>
         <h1>My WORDS</h1>
         <hr />
-        {loading && <Spinner />}
-        {!loading && list}
-        {!loading && displayWord}
+        {data.loading && <Spinner />}
+        {!data.loading && list}
+        {!data.loading && displayWord}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    words: state.myWords.words,
-    display: state.myWords.display,
-    selectedWord: state.myWords.selectedWord,
-    loading: state.myWords.loading,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  data: getWordsData(),
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -45,8 +45,7 @@ class Find extends Component {
       <div>
         {redirect}
         <h1>FIND WORDS</h1>
-        <Search search={this.onSearchHandler} />
-        {words}
+        <Search search={this.onSearchHandler} searchStatus={words} />
       </div>
     );
   }
