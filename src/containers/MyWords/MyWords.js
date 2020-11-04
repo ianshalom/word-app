@@ -31,12 +31,11 @@ class MyWords extends Component {
   };
 
   onDeleteWord = (id) => {
-    this.props.onDeleteWord(this.props.words, id);
+    this.props.onDeleteWord(this.props.data.words, id);
   };
 
   render() {
     const { data } = this.props;
-    console.log(data);
     let list = <Spinner />;
     if (data.words && !data.display) {
       list = data.words.map((word) => (

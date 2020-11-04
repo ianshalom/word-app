@@ -1,17 +1,26 @@
 import React from "react";
-import styled from "styled-components";
+
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  fontFamily: {
+    fontFamily: "Nanum Gothic",
+  },
+  root: {
+    color: "#070d59",
+    fontSize: "2rem",
+  },
+});
 
 function Home() {
-  const Title = styled.h1`
-    font-size: 1.5rem;
-    text-align: center;
-    color: palevioletred;
-  `;
-
+  const classes = useStyles();
   return (
     <div>
-      <Title>Home</Title>
-      <h3>Find, learn, save, review.</h3>
+      <Typography className={classes.fontFamily} variant="h3" color="primary">
+        Home
+      </Typography>
+      <h3 className={classes.root}>Find, learn, save, review.</h3>
     </div>
   );
 }

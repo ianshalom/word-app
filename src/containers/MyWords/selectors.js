@@ -1,8 +1,7 @@
 import { createSelector } from "reselect";
 
 const myWordsData = (state) => state.myWords;
-
+console.log(myWordsData);
 const getWordsData = () => createSelector(myWordsData, (substate) => substate);
-console.log(getWordsData);
 
 export default getWordsData;

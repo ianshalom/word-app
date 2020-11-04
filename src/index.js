@@ -5,17 +5,25 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import configureStore from "./store";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const store = configureStore();
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: ["Nanum Gothic", "sans-serif"],
+  },
+});
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Router>
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <Router>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Router>
+    </Provider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

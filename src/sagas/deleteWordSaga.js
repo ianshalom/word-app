@@ -13,7 +13,7 @@ export function* initDeleteWord() {
     const updatedWords = yield call(deleteWord, words, id);
     yield put(deleteWordSuccess(updatedWords));
   } catch (error) {
-    yield put(deleteWordFail);
+    yield put(deleteWordFail());
   }
 }
 
